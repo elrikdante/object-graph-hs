@@ -30,15 +30,16 @@ analyse :: FilePath -> IO Analysis
 analyse path = do
   let folder = fromEither (toText path)
   (code, out) <- shellStrict ("flog " `T.append` folder) empty
-  let methodList = filter (not . T.null) $
-                     concatMap (T.splitOn " ") $
-                     fmap (T.dropWhile (==' ') ) (drop 4 (T.lines out))
+  let methodList = fmap (T.dropWhile (==' ') ) (drop 4 (T.lines out))
   case code of
-    ExitSuccess -> return $ Right $ Success (RubyClass "balh" []) (parseMethodDetail methodList)
+    ExitSuccess -> return $ Right $ Success (RubyClass "balh" []) (parseMethodDetail (fmap tokenise methodList))
     _           -> return $ Left Failure
   where
-    parseMethodDetail (complexity:method:file:rest) = (complexity,method,file):parseMethodDetail rest
+    parseMethodDetail ((complexity:method:file:_):rest)
+      | "none" `T.isSuffixOf` method   = parseMethodDetail rest
+      | otherwise                      = (complexity,method,file):parseMethodDetail rest
     parseMethodDetail _                             = []
+    tokenise = fmap (filter (not . T.null)) (T.splitOn " ") 
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
