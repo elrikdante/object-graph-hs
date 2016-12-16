@@ -35,10 +35,10 @@ analyse path = do
     ExitSuccess -> return $ Right $ Success (RubyClass "balh" []) (parseMethodDetail (fmap tokenise methodList))
     _           -> return $ Left Failure
   where
-    parseMethodDetail ((complexity:method:file:_):rest)
+    parseMethodDetail ((complexity:method:file:[]):rest)
       | "none" `T.isSuffixOf` method   = parseMethodDetail rest
       | otherwise                      = (complexity,method,file):parseMethodDetail rest
-    parseMethodDetail _                             = []
+    parseMethodDetail _                = []
     tokenise = fmap (filter (not . T.null)) (T.splitOn " ") 
 
 demoClasses :: Data.Map.Map T.Text RubyClass
