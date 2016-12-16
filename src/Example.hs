@@ -15,10 +15,30 @@ import GHC.Exts   (fromList)
 import Data.Either (either)
 import Data.Maybe  (fromMaybe)
 import Data.Aeson ((.:))
-
+import Turtle
+import Prelude hiding (FilePath)
 fromEither = either undefined id
 
 data RubyClass = RubyClass T.Text [(T.Text, Int)] deriving Show
+               
+data Success   =  Success RubyClass [(T.Text, T.Text, T.Text)] deriving Show
+data Failure   = Failure deriving Show
+
+type Analysis  = Either (Failure) Success
+
+analyse :: FilePath -> IO Analysis
+analyse path = do
+  let folder = fromEither (toText path)
+  (code, out) <- shellStrict ("flog " `T.append` folder) empty
+  let methodList = filter (not . T.null) $
+                     concatMap (T.splitOn " ") $
+                     fmap (T.dropWhile (==' ') ) (drop 4 (T.lines out))
+  case code of
+    ExitSuccess -> return $ Right $ Success (RubyClass "balh" []) (parseMethodDetail methodList)
+    _           -> return $ Left Failure
+  where
+    parseMethodDetail (complexity:method:file:rest) = (complexity,method,file):parseMethodDetail rest
+    parseMethodDetail _                             = []
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
@@ -67,3 +87,4 @@ app = S.scottyApp app'
 
 runApp :: IO ()
 runApp = S.scotty 8080 app'
+
