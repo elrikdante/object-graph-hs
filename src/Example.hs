@@ -21,9 +21,9 @@ import Turtle
 import Prelude hiding (FilePath,fail)
 fromEither = either undefined id
 
-data RubyClass = RubyClass T.Text [(T.Text, T.Text)] deriving Show
+data RubyClass    = RubyClass T.Text [(T.Text, Double)] deriving Show
 data Failure msg  = Failure msg deriving Show
-type Analysis  = Either (Failure T.Text) RubyClass
+type Analysis     = Either (Failure T.Text) RubyClass
 
 fail msg = Failure msg
 sink     = flip shellStrict empty
@@ -39,8 +39,9 @@ analyse path = do
     parseMethodDetail ([]:rest)                    = parseMethodDetail rest
     parseMethodDetail ((complexity:method:_):rest)
       | "none" `T.isSuffixOf` method               = parseMethodDetail rest
-      | otherwise                                  = (method, complexity):parseMethodDetail rest
+      | otherwise                                  = (method, parseComplexity complexity):parseMethodDetail rest
     parseMethodDetail _                            = []
+    parseComplexity                                = read . T.unpack . T.init
     folder                                         = fromEither $ toText path
     fmt = fmap (filter $ not . T.null)
                (T.splitOn " " . T.dropWhile  (== ' '))
@@ -55,7 +56,7 @@ instance Data.Aeson.FromJSON RubyClass where
   parseJSON = Data.Aeson.withObject "RubyClass" $ \o ->
     RubyClass 
     <$> o .: "name"
-    <*> fmap (fmap (\(k,v) -> (T.cons '*' k, v))) (o .: "methods")
+    <*> fmap (fmap (\(k,v) -> (T.cons '*' k, read $ T.unpack v))) (o .: "methods")
 
 instance Data.Aeson.ToJSON RubyClass where
   toJSON (RubyClass name methods) = object [
