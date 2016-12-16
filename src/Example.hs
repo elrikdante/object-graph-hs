@@ -25,30 +25,6 @@ data RubyClass    = RubyClass T.Text [(T.Text, Double)] deriving Show
 data Failure msg  = Failure msg deriving Show
 type Analysis     = Either (Failure T.Text) RubyClass
 
-data StateMachine s a = StateMachine { runStateMachine :: (s -> (s,a)) }
-
-instance Functor (StateMachine s) where
-  fmap f (StateMachine g) = StateMachine $ \state ->
-    let (state, val) = g state in (state, f val)
-
-instance Applicative (StateMachine s) where
-  pure = return 
-
-instance Monad (StateMachine s) where
-  return val = StateMachine $ \state ->  (state,val)
-
-  f >>= g = StateMachine $ \state -> 
-    let (state' , val ) = runStateMachine f state
-        (state'',val' ) = runStateMachine (g val) state'
-    in (state'  , val')
-        
-
-put :: state -> StateMachine state val -> StateMachine state ()
-put state (StateMachine f) = StateMachine $ \_ -> (state, ())
-
-get :: state -> StateMachine state a -> StateMachine state a
-get state (StateMachine f) = undefined
-
 fail msg = Failure msg
 sink     = flip shellStrict empty
 analyse :: FilePath -> IO Analysis
