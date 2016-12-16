@@ -43,8 +43,8 @@ analyse path = do
     parseMethodDetail _                            = []
     parseComplexity                                = read . T.unpack . T.init
     folder                                         = fromEither $ toText path
-    fmt = fmap (filter $ not . T.null)
-               (T.splitOn " " . T.dropWhile  (== ' '))
+    fmt                                            = fmap (filter $ not . T.null)
+                                                          (T.splitOn " " . T.dropWhile  (== ' '))
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
