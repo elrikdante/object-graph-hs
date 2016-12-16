@@ -1,5 +1,7 @@
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE OverloadedStrings, QuasiQuotes #-}
+{-# LANGUAGE RankNTypes,
+             OverloadedStrings, 
+             QuasiQuotes,
+             ExistentialQuantification #-}
 module Example (runApp, app) where
 
 import           Data.Aeson (Value(..), object, (.=))
@@ -16,28 +18,26 @@ import Data.Either (either)
 import Data.Maybe  (fromMaybe)
 import Data.Aeson ((.:))
 import Turtle
-import Prelude hiding (FilePath)
+import Prelude hiding (FilePath,fail)
 fromEither = either undefined id
 
-data RubyClass = RubyClass T.Text [(T.Text, Int)] deriving Show
-               
-data Success   =  Success RubyClass [(T.Text, T.Text, T.Text)] deriving Show
-data Failure   = Failure deriving Show
+data RubyClass = RubyClass T.Text [(T.Text, T.Text)] deriving Show
+data Failure msg  = Failure msg deriving Show
+type Analysis  = Either (Failure T.Text) RubyClass
 
-type Analysis  = Either (Failure) Success
-
+fail msg = Failure msg
 analyse :: FilePath -> IO Analysis
 analyse path = do
   let folder = fromEither (toText path)
   (code, out) <- shellStrict ("flog " `T.append` folder) empty
   let methodList = fmap (T.dropWhile (==' ') ) (drop 4 (T.lines out))
   case code of
-    ExitSuccess -> return $ Right $ Success (RubyClass "balh" []) (parseMethodDetail (fmap tokenise methodList))
-    _           -> return $ Left Failure
+    ExitSuccess -> return $ Right $ (RubyClass "balh" (parseMethodDetail (fmap tokenise methodList)))
+    _           -> return $ Left (fail "Whoops")
   where
-    parseMethodDetail ((complexity:method:file:[]):rest)
+    parseMethodDetail ((complexity:method:_file:[]):rest)
       | "none" `T.isSuffixOf` method   = parseMethodDetail rest
-      | otherwise                      = (complexity,method,file):parseMethodDetail rest
+      | otherwise                      = (method, complexity):parseMethodDetail rest
     parseMethodDetail _                = []
     tokenise = fmap (filter (not . T.null)) (T.splitOn " ") 
 
