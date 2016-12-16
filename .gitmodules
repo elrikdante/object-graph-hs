@@ -1,0 +1,3 @@
+[submodule "examples/bunny"]
+	path = examples/bunny
+	url = git@github.com:ruby-amqp/bunny.git
