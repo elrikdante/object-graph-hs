@@ -26,20 +26,24 @@ data Failure msg  = Failure msg deriving Show
 type Analysis  = Either (Failure T.Text) RubyClass
 
 fail msg = Failure msg
+sink     = flip shellStrict empty
 analyse :: FilePath -> IO Analysis
 analyse path = do
-  let folder = fromEither (toText path)
-  (code, out) <- shellStrict ("flog " `T.append` folder) empty
-  let methodList = fmap (T.dropWhile (==' ') ) (drop 4 (T.lines out))
+  (code, out)    <- sink $ "flog " <> folder
+  let methodList = T.lines out
+      
   case code of
-    ExitSuccess -> return $ Right $ (RubyClass "balh" (parseMethodDetail (fmap tokenise methodList)))
+    ExitSuccess -> return $ Right $ (RubyClass "blah" (parseMethodDetail (fmap fmt methodList)))
     _           -> return $ Left (fail "Whoops")
   where
-    parseMethodDetail ((complexity:method:_file:[]):rest)
-      | "none" `T.isSuffixOf` method   = parseMethodDetail rest
-      | otherwise                      = (method, complexity):parseMethodDetail rest
-    parseMethodDetail _                = []
-    tokenise = fmap (filter (not . T.null)) (T.splitOn " ") 
+    parseMethodDetail ([]:rest)                    = parseMethodDetail rest
+    parseMethodDetail ((complexity:method:_):rest)
+      | "none" `T.isSuffixOf` method               = parseMethodDetail rest
+      | otherwise                                  = (method, complexity):parseMethodDetail rest
+    parseMethodDetail _                            = []
+    folder                                         = fromEither $ toText path
+    fmt = fmap (filter $ not . T.null)
+               (T.splitOn " " . T.dropWhile  (== ' '))
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
