@@ -72,52 +72,26 @@ summarise dir = do
                       <|> (many digit <* skip spaces)
                 char ':'
                 skip (crlf <|> spaces)
-                description <- many (alphaNum <|> oneOf "#/.:-")
-                fileInfo <- optional $  skip (spaces) *> many (alphaNum <|> oneOf "/")
+                description <- many (alphaNum <|> oneOf "#/.:-?!_")
+                fileInfo    <- optional $ do
+                                         path <- skip (spaces) *> many (alphaNum <|> oneOf "/._")
+                                         (char ':')
+                                         (min,max) <- ((,) <$> (many digit)
+                                                           <*> (char '-' *> many digit))
+                                         return (path,(min,max))
                 _ <- many anyChar
                 return $ maybe
                          (MethodSummary description (read score))
-                         (\path ->
+                         (\(path,(min,max)) ->
                                 case null path of
                                 True -> MethodSummary description (read score)
-                                _    -> MethodSummaryPath description (read score) path)
+                                _    -> MethodSummaryPath description
+                                                          (read score)
+                                                          path
+                                                          (read min)
+                                                          (read max))
                          fileInfo
 
-analyse :: FilePath -> IO (Analysis)
-analyse dir = do
-  (code, out) <- flogCmd folder
-  let analysis = parseAnalysis out
-      keys     = Data.Map.keys analysis `zip` (repeat 0.0)
-  print analysis
-  return $ if null analysis
-  then (Left $ fail $ "No Parse: " <> out)
-  else (Right $ RubyClass "--" keys)
-
-  where
-    folder = fromEither . toText $ dir
-
-parseAnalysis :: T.Text -> Data.Map.Map T.Text [(T.Text, Int)]
-parseAnalysis out = objectMap
-  where
-    objectMap           = foldr build emptyMap formattedMethodList
-    formattedMethodList = parseMethodDetail (fmap fmt methodList)
-    methodList          = T.lines out
-
-    build (scope_name, complexity) oMap =
-      let currentList   = maybe [] id $
-                          Data.Map.lookup scope oMap
-          (scope:name)  = T.splitOn "#" scope_name
-      in Data.Map.insert scope ([("",complexity)]++currentList) oMap
-
-    parseMethodDetail ([]:rest)                    = parseMethodDetail rest
-    parseMethodDetail ((complexity:method:_):rest)
-      | "none" `T.isSuffixOf` method               = parseMethodDetail rest
-      | otherwise                                  = (method, parseComplexity complexity :: Int):parseMethodDetail rest
-    parseMethodDetail _                            = []
-
-    parseComplexity                                = read . T.unpack . T.init
-    fmt                                            = fmap (filter $ not . T.null)
-                                                          (T.splitOn " " . T.dropWhile  (== ' '))
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
@@ -164,4 +138,4 @@ app :: IO Application
 app = Web.Scotty.scottyApp app'
 
 runApp :: IO ()
-runApp = summarise "examples/bunny/lib" >>= print -- >>  Web.Scotty.scotty 8080 app'
+runApp = summarise "examples/bunny/lib" >>= mapM_ LBS.putStrLn  . fmap encode . sortOn (msName)-- >>  Web.Scotty.scotty 8080 app'
