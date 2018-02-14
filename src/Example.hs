@@ -1,5 +1,6 @@
 {-# LANGUAGE RankNTypes,
-             OverloadedStrings #-}
+             OverloadedStrings,
+             DeriveGeneric #-}
 module Example (runApp, app) where
 
 import           Data.Aeson (Value(..), object, (.=))
@@ -15,14 +16,16 @@ import qualified Data.Map   as Data.Map
 import Control.Monad.IO.Class (liftIO)
 import Network.HTTP.Types (status404)
 import GHC.Exts   (fromList)
+import GHC.Generics
 import Data.Either (either)
 import Data.Maybe  -- (fromMaybe)
-import Data.Aeson ((.:))
+import Data.Aeson -- ((.:))
 import Data.Foldable (forM_)
 import Data.Function -- ((&))
 import Turtle
 import Prelude hiding (FilePath,fail)
-
+import Data.List (sortOn)
+import qualified Data.ByteString.Lazy as LBS
 
 data RubyClass    = RubyClass T.Text [(T.Text, Double)] deriving Show
 data Failure msg  = Failure msg deriving Show
