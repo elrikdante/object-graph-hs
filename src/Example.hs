@@ -37,14 +37,16 @@ sink       = flip shellStrict empty
 flogCmd    = sink . ("flog " <>)
 
 
-data MethodSummary = MethodSummary String Int
+data MethodSummary =
+     MethodSummary String Float
+    |MethodSummaryPath String Float String
+     deriving (Show,Eq,Ord)
 data Complexity    = Complexity String Int [MethodSummary]
 
-summarise :: FilePath -> IO ()
+summarise :: FilePath -> IO [MethodSummary]
 summarise dir = do
   parts <- shellStrict ("flog " <> (folder dir)) empty & fmap snd & fmap T.lines
-  sum   <- pure (fmap (match summary) parts) & fmap (fmap extract)
-  print sum
+  pure (fmap (match summary) parts) & fmap (fmap extract) & fmap catMaybes
   where extract [] = Nothing
         extract (h:_) = Just h
         folder= fromEither . toText
@@ -58,9 +60,16 @@ summarise dir = do
                       <|> (many digit <* skip spaces)
                 char ':'
                 skip (crlf <|> spaces)
-                description <- many (alphaNum <|> oneOf ".:- ") <* skip (crlf <|> spaces)
+                description <- many (alphaNum <|> oneOf "#/.:-")
+                fileInfo <- optional $  skip (spaces) *> many (alphaNum <|> oneOf "/")
                 _ <- many anyChar
-                return (score,description)
+                return $ maybe
+                         (MethodSummary description (read score))
+                         (\path ->
+                                case null path of
+                                True -> MethodSummary description (read score)
+                                _    -> MethodSummaryPath description (read score) path)
+                         fileInfo
 
 analyse :: FilePath -> IO (Analysis)
 analyse dir = do
@@ -143,4 +152,4 @@ app :: IO Application
 app = Web.Scotty.scottyApp app'
 
 runApp :: IO ()
-runApp = summarise "examples/bunny/lib" -- >>  Web.Scotty.scotty 8080 app'
+runApp = summarise "examples/bunny/lib" >>= print -- >>  Web.Scotty.scotty 8080 app'
