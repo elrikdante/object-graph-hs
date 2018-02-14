@@ -1,87 +1,94 @@
-{"tag":"MethodSummaryPath","msCost":27.5,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":887,"msloMin":843,"msName":"Bunny::Channel#basic_consume"}
-{"tag":"MethodSummaryPath","msCost":32.8,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":939,"msloMin":899,"msName":"Bunny::Channel#basic_consume_with"}
-{"tag":"MethodSummaryPath","msCost":15.7,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":611,"msloMin":588,"msName":"Bunny::Channel#basic_get"}
-{"tag":"MethodSummaryPath","msCost":21.1,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":563,"msloMin":526,"msName":"Bunny::Channel#basic_publish"}
-{"tag":"MethodSummaryPath","msCost":16.6,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":649,"msloMin":634,"msName":"Bunny::Channel#basic_qos"}
-{"tag":"MethodSummaryPath","msCost":16.9,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1405,"msloMin":1387,"msName":"Bunny::Channel#confirm_select"}
-{"tag":"MethodSummaryPath","msCost":16.8,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1235,"msloMin":1209,"msName":"Bunny::Channel#exchange_bind"}
-{"tag":"MethodSummaryPath","msCost":17.4,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1166,"msloMin":1149,"msName":"Bunny::Channel#exchange_declare"}
-{"tag":"MethodSummaryPath","msCost":16.8,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1279,"msloMin":1253,"msName":"Bunny::Channel#exchange_unbind"}
-{"tag":"MethodSummaryPath","msCost":18.3,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1749,"msloMin":1731,"msName":"Bunny::Channel#handle_ack_or_nack"}
-{"tag":"MethodSummaryPath","msCost":13.5,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1715,"msloMin":1704,"msName":"Bunny::Channel#handle_frameset"}
-{"tag":"MethodSummaryPath","msCost":87.6,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1683,"msloMin":1605,"msName":"Bunny::Channel#handle_method"}
-{"tag":"MethodSummaryPath","msCost":42.2,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":204,"msloMin":168,"msName":"Bunny::Channel#initialize"}
-{"tag":"MethodSummaryPath","msCost":10.8,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1927,"msloMin":1911,"msName":"Bunny::Channel#instantiate_channel_level_exception"}
-{"tag":"MethodSummary","msCost":31.3,"msName":"Bunny::Channel#none"}
-{"tag":"MethodSummaryPath","msCost":16,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1091,"msloMin":1071,"msName":"Bunny::Channel#queue_bind"}
-{"tag":"MethodSummaryPath","msCost":13.4,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1008,"msloMin":993,"msName":"Bunny::Channel#queue_declare"}
-{"tag":"MethodSummaryPath","msCost":11.5,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1035,"msloMin":1022,"msName":"Bunny::Channel#queue_delete"}
-{"tag":"MethodSummaryPath","msCost":14.1,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1126,"msloMin":1107,"msName":"Bunny::Channel#queue_unbind"}
-{"tag":"MethodSummaryPath","msCost":12.3,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1549,"msloMin":1542,"msName":"Bunny::Channel#recover_consumers"}
-{"tag":"MethodSummaryPath","msCost":15.7,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1573,"msloMin":1572,"msName":"Bunny::Channel#to_s"}
-{"tag":"MethodSummaryPath","msCost":17.1,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1786,"msloMin":1773,"msName":"Bunny::Channel#wait_on_basic_get_continuations"}
-{"tag":"MethodSummaryPath","msCost":25.5,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1808,"msloMin":1791,"msName":"Bunny::Channel#wait_on_confirms_continuations"}
-{"tag":"MethodSummaryPath","msCost":17.1,"msPath":"examples/bunny/lib/bunny/channel.rb","msloMax":1768,"msloMin":1755,"msName":"Bunny::Channel#wait_on_continuations"}
-{"tag":"MethodSummary","msCost":11,"msName":"Bunny::Concurrent::AtomicFixnum#none"}
-{"tag":"MethodSummaryPath","msCost":12.4,"msPath":"examples/bunny/lib/bunny/concurrent/continuation_queue.rb","msloMax":38,"msloMin":27,"msName":"Bunny::Concurrent::ContinuationQueue#poll"}
-{"tag":"MethodSummaryPath","msCost":11.6,"msPath":"examples/bunny/lib/bunny/consumer.rb","msloMax":43,"msloMin":34,"msName":"Bunny::Consumer#initialize"}
-{"tag":"MethodSummaryPath","msCost":11.7,"msPath":"examples/bunny/lib/bunny/consumer_work_pool.rb","msloMax":27,"msloMin":20,"msName":"Bunny::ConsumerWorkPool#initialize"}
-{"tag":"MethodSummaryPath","msCost":20.2,"msPath":"examples/bunny/lib/bunny/consumer_work_pool.rb","msloMax":118,"msloMin":100,"msName":"Bunny::ConsumerWorkPool#run_loop"}
-{"tag":"MethodSummaryPath","msCost":11.3,"msPath":"examples/bunny/lib/bunny/consumer_work_pool.rb","msloMax":72,"msloMin":59,"msName":"Bunny::ConsumerWorkPool#shutdown"}
-{"tag":"MethodSummaryPath","msCost":11,"msPath":"examples/bunny/lib/bunny/consumer_work_pool.rb","msloMax":44,"msloMin":35,"msName":"Bunny::ConsumerWorkPool#start"}
-{"tag":"MethodSummaryPath","msCost":18.1,"msPath":"examples/bunny/lib/bunny/exchange.rb","msloMax":89,"msloMin":74,"msName":"Bunny::Exchange#initialize"}
-{"tag":"MethodSummaryPath","msCost":19.9,"msPath":"examples/bunny/lib/bunny/framing.rb","msloMax":51,"msloMin":38,"msName":"Bunny::Framing::IO::Frame::decode"}
-{"tag":"MethodSummaryPath","msCost":20.1,"msPath":"examples/bunny/lib/bunny/framing.rb","msloMax":29,"msloMin":12,"msName":"Bunny::Framing::String::Frame::decode"}
-{"tag":"MethodSummaryPath","msCost":12.1,"msPath":"examples/bunny/lib/bunny/heartbeat_sender.rb","msloMax":58,"msloMin":45,"msName":"Bunny::HeartbeatSender#run"}
-{"tag":"MethodSummaryPath","msCost":13.2,"msPath":"examples/bunny/lib/bunny/heartbeat_sender.rb","msloMax":31,"msloMin":23,"msName":"Bunny::HeartbeatSender#start"}
-{"tag":"MethodSummaryPath","msCost":24.6,"msPath":"examples/bunny/lib/bunny/jruby/ssl_socket.rb","msloMax":46,"msloMin":18,"msName":"Bunny::JRuby::SSLSocket#read_fully"}
-{"tag":"MethodSummaryPath","msCost":15.2,"msPath":"examples/bunny/lib/bunny/jruby/socket.rb","msloMax":37,"msloMin":18,"msName":"Bunny::JRuby::Socket#read_fully"}
-{"tag":"MethodSummaryPath","msCost":10.3,"msPath":"examples/bunny/lib/bunny/queue.rb","msloMax":125,"msloMin":110,"msName":"Bunny::Queue#bind"}
-{"tag":"MethodSummaryPath","msCost":18.1,"msPath":"examples/bunny/lib/bunny/queue.rb","msloMax":53,"msloMin":34,"msName":"Bunny::Queue#initialize"}
-{"tag":"MethodSummaryPath","msCost":19.6,"msPath":"examples/bunny/lib/bunny/queue.rb","msloMax":265,"msloMin":242,"msName":"Bunny::Queue#pop"}
-{"tag":"MethodSummaryPath","msCost":12.5,"msPath":"examples/bunny/lib/bunny/queue.rb","msloMax":351,"msloMin":333,"msName":"Bunny::Queue#recover_from_network_failure"}
-{"tag":"MethodSummaryPath","msCost":29.3,"msPath":"examples/bunny/lib/bunny/queue.rb","msloMax":199,"msloMin":168,"msName":"Bunny::Queue#subscribe"}
-{"tag":"MethodSummaryPath","msCost":19.5,"msPath":"examples/bunny/lib/bunny/queue.rb","msloMax":151,"msloMin":139,"msName":"Bunny::Queue#unbind"}
-{"tag":"MethodSummaryPath","msCost":17.7,"msPath":"examples/bunny/lib/bunny/reader_loop.rb","msloMax":130,"msloMin":125,"msName":"Bunny::ReaderLoop#log_exception"}
-{"tag":"MethodSummaryPath","msCost":43,"msPath":"examples/bunny/lib/bunny/reader_loop.rb","msloMax":64,"msloMin":31,"msName":"Bunny::ReaderLoop#run_loop"}
-{"tag":"MethodSummaryPath","msCost":34.2,"msPath":"examples/bunny/lib/bunny/reader_loop.rb","msloMax":87,"msloMin":67,"msName":"Bunny::ReaderLoop#run_once"}
-{"tag":"MethodSummaryPath","msCost":26.3,"msPath":"examples/bunny/lib/bunny/cruby/ssl_socket.rb","msloMax":49,"msloMin":21,"msName":"Bunny::SSLSocket#read_fully"}
-{"tag":"MethodSummaryPath","msCost":25.7,"msPath":"examples/bunny/lib/bunny/cruby/ssl_socket.rb","msloMax":91,"msloMin":63,"msName":"Bunny::SSLSocket#write_nonblock_fully"}
-{"tag":"MethodSummaryPath","msCost":16.8,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":783,"msloMin":772,"msName":"Bunny::Session#addresses_from"}
-{"tag":"MethodSummaryPath","msCost":14.4,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":529,"msloMin":526,"msName":"Bunny::Session#close_all_channels"}
-{"tag":"MethodSummaryPath","msCost":12.6,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":521,"msloMin":511,"msName":"Bunny::Session#close_channel"}
-{"tag":"MethodSummaryPath","msCost":10.4,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":546,"msloMin":535,"msName":"Bunny::Session#close_connection"}
-{"tag":"MethodSummaryPath","msCost":11.9,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":946,"msloMin":938,"msName":"Bunny::Session#close_transport"}
-{"tag":"MethodSummaryPath","msCost":13.9,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":347,"msloMin":337,"msName":"Bunny::Session#create_channel"}
-{"tag":"MethodSummaryPath","msCost":46.9,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":602,"msloMin":557,"msName":"Bunny::Session#handle_frame"}
-{"tag":"MethodSummaryPath","msCost":13,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":624,"msloMin":613,"msName":"Bunny::Session#handle_frameset"}
-{"tag":"MethodSummaryPath","msCost":20.8,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":657,"msloMin":634,"msName":"Bunny::Session#handle_network_failure"}
-{"tag":"MethodSummaryPath","msCost":15.2,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":830,"msloMin":811,"msName":"Bunny::Session#host_from_address"}
-{"tag":"MethodSummaryPath","msCost":13.7,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":1060,"msloMin":1049,"msName":"Bunny::Session#init_connection"}
-{"tag":"MethodSummaryPath","msCost":73.2,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":203,"msloMin":129,"msName":"Bunny::Session#initialize"}
-{"tag":"MethodSummaryPath","msCost":15.3,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":1216,"msloMin":1201,"msName":"Bunny::Session#initialize_transport"}
-{"tag":"MethodSummaryPath","msCost":18.9,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":741,"msloMin":717,"msName":"Bunny::Session#instantiate_connection_level_exception"}
-{"tag":"MethodSummary","msCost":22.9,"msName":"Bunny::Session#none"}
-{"tag":"MethodSummaryPath","msCost":12.8,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":404,"msloMin":401,"msName":"Bunny::Session#open?"}
-{"tag":"MethodSummaryPath","msCost":11.2,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":506,"msloMin":495,"msName":"Bunny::Session#open_channel"}
-{"tag":"MethodSummaryPath","msCost":95.6,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":1167,"msloMin":1064,"msName":"Bunny::Session#open_connection"}
-{"tag":"MethodSummaryPath","msCost":18.8,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":850,"msloMin":834,"msName":"Bunny::Session#port_from_address"}
-{"tag":"MethodSummaryPath","msCost":21.8,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":698,"msloMin":674,"msName":"Bunny::Session#recover_from_network_failure"}
-{"tag":"MethodSummaryPath","msCost":34.6,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":322,"msloMin":278,"msName":"Bunny::Session#start"}
-{"tag":"MethodSummaryPath","msCost":12.1,"msPath":"examples/bunny/lib/bunny/session.rb","msloMax":213,"msloMin":206,"msName":"Bunny::Session#validate_connection_options"}
-{"tag":"MethodSummaryPath","msCost":15.2,"msPath":"examples/bunny/lib/bunny/cruby/socket.rb","msloMax":55,"msloMin":36,"msName":"Bunny::Socket#read_fully"}
-{"tag":"MethodSummaryPath","msCost":14.7,"msPath":"examples/bunny/lib/bunny/cruby/socket.rb","msloMax":88,"msloMin":69,"msName":"Bunny::Socket#write_nonblock_fully"}
-{"tag":"MethodSummaryPath","msCost":19,"msPath":"examples/bunny/lib/bunny/cruby/socket.rb","msloMax":26,"msloMin":15,"msName":"Bunny::Socket::open"}
-{"tag":"MethodSummaryPath","msCost":24.9,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":57,"msloMin":33,"msName":"Bunny::Transport#initialize"}
-{"tag":"MethodSummaryPath","msCost":27.3,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":475,"msloMin":454,"msName":"Bunny::Transport#initialize_tls_certificate_store"}
-{"tag":"MethodSummaryPath","msCost":20.1,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":434,"msloMin":398,"msName":"Bunny::Transport#initialize_tls_context"}
-{"tag":"MethodSummaryPath","msCost":19.7,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":359,"msloMin":343,"msName":"Bunny::Transport#prepare_tls_context"}
-{"tag":"MethodSummaryPath","msCost":15.4,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":225,"msloMin":212,"msName":"Bunny::Transport#read_fully"}
-{"tag":"MethodSummaryPath","msCost":18.8,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":256,"msloMin":235,"msName":"Bunny::Transport#read_next_frame"}
-{"tag":"MethodSummaryPath","msCost":10.8,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":312,"msloMin":310,"msName":"Bunny::Transport#tls_certificate_path_from"}
-{"tag":"MethodSummaryPath","msCost":10.3,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":308,"msloMin":304,"msName":"Bunny::Transport#tls_enabled?"}
-{"tag":"MethodSummaryPath","msCost":42.9,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":151,"msloMin":132,"msName":"Bunny::Transport#write"}
-{"tag":"MethodSummaryPath","msCost":12.8,"msPath":"examples/bunny/lib/bunny/transport.rb","msloMax":168,"msloMin":156,"msName":"Bunny::Transport#write_without_timeout"}
-{"tag":"MethodSummary","msCost":3121.1,"msName":"flog"}
-{"tag":"MethodSummary","msCost":6.8,"msName":"flog/method"}
-{"tag":"MethodSummary","msCost":105.9,"msName":"main#none"}
+stack build && stack exec rb-complexity-hs-exe | python -m json.tool
+{
+    "ccost": 5009.1,
+    "cmap": {
+        "Bunny::Channel#basic_consume": 27.5,
+        "Bunny::Channel#basic_consume_with": 32.8,
+        "Bunny::Channel#basic_get": 15.7,
+        "Bunny::Channel#basic_publish": 21.1,
+        "Bunny::Channel#basic_qos": 16.6,
+        "Bunny::Channel#confirm_select": 16.9,
+        "Bunny::Channel#exchange_bind": 16.8,
+        "Bunny::Channel#exchange_declare": 17.4,
+        "Bunny::Channel#exchange_unbind": 16.8,
+        "Bunny::Channel#handle_ack_or_nack": 18.3,
+        "Bunny::Channel#handle_frameset": 13.5,
+        "Bunny::Channel#handle_method": 87.6,
+        "Bunny::Channel#initialize": 42.2,
+        "Bunny::Channel#instantiate_channel_level_exception": 10.8,
+        "Bunny::Channel#none": 31.3,
+        "Bunny::Channel#queue_bind": 16,
+        "Bunny::Channel#queue_declare": 13.4,
+        "Bunny::Channel#queue_delete": 11.5,
+        "Bunny::Channel#queue_unbind": 14.1,
+        "Bunny::Channel#recover_consumers": 12.3,
+        "Bunny::Channel#to_s": 15.7,
+        "Bunny::Channel#wait_on_basic_get_continuations": 17.1,
+        "Bunny::Channel#wait_on_confirms_continuations": 25.5,
+        "Bunny::Channel#wait_on_continuations": 17.1,
+        "Bunny::Concurrent::AtomicFixnum#none": 11,
+        "Bunny::Concurrent::ContinuationQueue#poll": 12.4,
+        "Bunny::Consumer#initialize": 11.6,
+        "Bunny::ConsumerWorkPool#initialize": 11.7,
+        "Bunny::ConsumerWorkPool#run_loop": 20.2,
+        "Bunny::ConsumerWorkPool#shutdown": 11.3,
+        "Bunny::ConsumerWorkPool#start": 11,
+        "Bunny::Exchange#initialize": 18.1,
+        "Bunny::Framing::IO::Frame::decode": 19.9,
+        "Bunny::Framing::String::Frame::decode": 20.1,
+        "Bunny::HeartbeatSender#run": 12.1,
+        "Bunny::HeartbeatSender#start": 13.2,
+        "Bunny::JRuby::SSLSocket#read_fully": 24.6,
+        "Bunny::JRuby::Socket#read_fully": 15.2,
+        "Bunny::Queue#bind": 10.3,
+        "Bunny::Queue#initialize": 18.1,
+        "Bunny::Queue#pop": 19.6,
+        "Bunny::Queue#recover_from_network_failure": 12.5,
+        "Bunny::Queue#subscribe": 29.3,
+        "Bunny::Queue#unbind": 19.5,
+        "Bunny::ReaderLoop#log_exception": 17.7,
+        "Bunny::ReaderLoop#run_loop": 43,
+        "Bunny::ReaderLoop#run_once": 34.2,
+        "Bunny::SSLSocket#read_fully": 26.3,
+        "Bunny::SSLSocket#write_nonblock_fully": 25.7,
+        "Bunny::Session#addresses_from": 16.8,
+        "Bunny::Session#close_all_channels": 14.4,
+        "Bunny::Session#close_channel": 12.6,
+        "Bunny::Session#close_connection": 10.4,
+        "Bunny::Session#close_transport": 11.9,
+        "Bunny::Session#create_channel": 13.9,
+        "Bunny::Session#handle_frame": 46.9,
+        "Bunny::Session#handle_frameset": 13,
+        "Bunny::Session#handle_network_failure": 20.8,
+        "Bunny::Session#host_from_address": 15.2,
+        "Bunny::Session#init_connection": 13.7,
+        "Bunny::Session#initialize": 73.2,
+        "Bunny::Session#initialize_transport": 15.3,
+        "Bunny::Session#instantiate_connection_level_exception": 18.9,
+        "Bunny::Session#none": 22.9,
+        "Bunny::Session#open?": 12.8,
+        "Bunny::Session#open_channel": 11.2,
+        "Bunny::Session#open_connection": 95.6,
+        "Bunny::Session#port_from_address": 18.8,
+        "Bunny::Session#recover_from_network_failure": 21.8,
+        "Bunny::Session#start": 34.6,
+        "Bunny::Session#validate_connection_options": 12.1,
+        "Bunny::Socket#read_fully": 15.2,
+        "Bunny::Socket#write_nonblock_fully": 14.7,
+        "Bunny::Socket::open": 19,
+        "Bunny::Transport#initialize": 24.9,
+        "Bunny::Transport#initialize_tls_certificate_store": 27.3,
+        "Bunny::Transport#initialize_tls_context": 20.1,
+        "Bunny::Transport#prepare_tls_context": 19.7,
+        "Bunny::Transport#read_fully": 15.4,
+        "Bunny::Transport#read_next_frame": 18.8,
+        "Bunny::Transport#tls_certificate_path_from": 10.8,
+        "Bunny::Transport#tls_enabled?": 10.3,
+        "Bunny::Transport#write": 42.9,
+        "Bunny::Transport#write_without_timeout": 12.8,
+        "flog": 3121.1,
+        "flog/method": 6.8,
+        "main#none": 105.9
+    },
+    "cspec": ""
+}
