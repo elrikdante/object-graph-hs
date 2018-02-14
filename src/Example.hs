@@ -1,6 +1,7 @@
 {-# LANGUAGE RankNTypes,
              OverloadedStrings,
-             DeriveGeneric #-}
+             DeriveGeneric,
+             DeriveAnyClass  #-}
 module Example (runApp, app) where
 
 import           Data.Aeson (Value(..), object, (.=))
@@ -46,11 +47,13 @@ data MethodSummary =
                   ,msPath :: String
                   ,msloMin :: LineOffset
                   ,msloMax :: LineOffset}
-     deriving (Show,Eq,Ord,Generic)
+     deriving (Show,Eq,Ord,Generic,ToJSON)
 
-instance ToJSON MethodSummary
-
-data Complexity    = Complexity String Int [MethodSummary]
+data Complexity    = Complexity {
+                     cspec   :: String
+                     ,ccost  ::  Float
+                     ,cmap   :: Data.Map.Map String Float}
+                     deriving (Show,Eq,Ord,Generic,ToJSON)
 
 summarise :: FilePath -> IO [MethodSummary]
 summarise dir = do
@@ -90,6 +93,12 @@ summarise dir = do
                          fileInfo
 
 
+index :: [MethodSummary] -> Complexity
+index ms = Complexity "" (sum (msCost <$> ms))
+           . Data.Map.fromList
+           . fmap unpack $ ms
+      where unpack (MethodSummary scope cost)                 = (scope,cost)
+            unpack (MethodSummaryPath scope cost path low hi) = (scope,cost)
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
@@ -136,4 +145,8 @@ app :: IO Application
 app = Web.Scotty.scottyApp app'
 
 runApp :: IO ()
-runApp = summarise "examples/bunny/lib" >>= mapM_ LBS.putStrLn  . fmap encode . sortOn (msName)-- >>  Web.Scotty.scotty 8080 app'
+runApp = summarise "examples/bunny/lib" >>=
+         pure . index . sortOn msName   >>=
+         LBS.putStrLn  . encode
+
+         -- >>  Web.Scotty.scotty 8080 app'
