@@ -1,4 +1,5 @@
-stack build && stack exec rb-complexity-hs-exe | python -m json.tool
+`stack build && stack exec rb-complexity-hs-exe | python -m json.tool`
+~~~~
 {
     "ccost": 5009.1,
     "cmap": {
@@ -92,3 +93,4 @@ stack build && stack exec rb-complexity-hs-exe | python -m json.tool
     },
     "cspec": ""
 }
+~~~~
