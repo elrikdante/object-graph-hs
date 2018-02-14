@@ -16,8 +16,10 @@ import Control.Monad.IO.Class (liftIO)
 import Network.HTTP.Types (status404)
 import GHC.Exts   (fromList)
 import Data.Either (either)
-import Data.Maybe  (fromMaybe)
+import Data.Maybe  -- (fromMaybe)
 import Data.Aeson ((.:))
+import Data.Foldable (forM_)
+import Data.Function -- ((&))
 import Turtle
 import Prelude hiding (FilePath,fail)
 
@@ -34,6 +36,31 @@ fail msg   = Failure msg
 sink       = flip shellStrict empty
 flogCmd    = sink . ("flog " <>)
 
+
+data MethodSummary = MethodSummary String Int
+data Complexity    = Complexity String Int [MethodSummary]
+
+summarise :: FilePath -> IO ()
+summarise dir = do
+  parts <- shellStrict ("flog " <> (folder dir)) empty & fmap snd & fmap T.lines
+  sum   <- pure (fmap (match summary) parts) & fmap (fmap extract)
+  print sum
+  where extract [] = Nothing
+        extract (h:_) = Just h
+        folder= fromEither . toText
+        summary = do
+                skip (crlf <|> spaces)
+                score <- (many digit >>= \ord  ->
+                          char '.'   >>
+                          many digit >>= \mant ->
+                          return (ord ++ "." ++ mant)
+                          <* skip spaces)
+                      <|> (many digit <* skip spaces)
+                char ':'
+                skip (crlf <|> spaces)
+                description <- many (alphaNum <|> oneOf ".:- ") <* skip (crlf <|> spaces)
+                _ <- many anyChar
+                return (score,description)
 
 analyse :: FilePath -> IO (Analysis)
 analyse dir = do
@@ -55,10 +82,10 @@ parseAnalysis out = objectMap
     formattedMethodList = parseMethodDetail (fmap fmt methodList)
     methodList          = T.lines out
 
-    build (scope_name, complexity) oMap = 
+    build (scope_name, complexity) oMap =
       let currentList   = maybe [] id $
                           Data.Map.lookup scope oMap
-          (scope:name)  = T.splitOn "#" scope_name 
+          (scope:name)  = T.splitOn "#" scope_name
       in Data.Map.insert scope ([("",complexity)]++currentList) oMap
 
     parseMethodDetail ([]:rest)                    = parseMethodDetail rest
@@ -79,7 +106,7 @@ demoClasses = Data.Map.fromList [
 
 instance Data.Aeson.FromJSON RubyClass where
   parseJSON = Data.Aeson.withObject "RubyClass" $ \o ->
-    RubyClass 
+    RubyClass
     <$> o .: "name"
     <*> (<$>) ((<$>) (\(k,v) -> (T.cons '*' k, read $ T.unpack v))) (o .: "methods")
 
@@ -91,7 +118,7 @@ instance Data.Aeson.ToJSON RubyClass where
 
 findOr404 :: T.Text -> (RubyClass -> Web.Scotty.ActionM ()) -> Web.Scotty.ActionM ()
 findOr404 name f = do
-  maybe 
+  maybe
     (Web.Scotty.status status404)
     f
     (Data.Map.lookup name demoClasses)
@@ -113,9 +140,7 @@ app' = do
     findOr404 class_name $ \(RubyClass name _) -> Web.Scotty.json (T.fromStrict name)
 
 app :: IO Application
-app = do
-  rbKlass <- fromEither <$> (analyse "examples/bunny/lib")
-  Web.Scotty.scottyApp app'
+app = Web.Scotty.scottyApp app'
 
 runApp :: IO ()
-runApp = Web.Scotty.scotty 8080 app'
+runApp = summarise "examples/bunny/lib" -- >>  Web.Scotty.scotty 8080 app'
