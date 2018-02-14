@@ -36,9 +36,6 @@ emptyMap :: Data.Map.Map T.Text [(T.Text,Int)]
 emptyMap   = Data.Map.empty
 
 fail msg   = Failure msg
-sink       = flip shellStrict empty
-flogCmd    = sink . ("flog " <>)
-
 type LineOffset = Int
 
 data MethodSummary =
@@ -57,7 +54,7 @@ data Complexity    = Complexity String Int [MethodSummary]
 
 summarise :: FilePath -> IO [MethodSummary]
 summarise dir = do
-  parts <- shellStrict ("flog " <> (folder dir)) empty & fmap snd & fmap T.lines
+  parts <- shellStrict ("flog " <> folder dir) empty & fmap snd & fmap T.lines
   pure (fmap (match summary) parts) & fmap (fmap extract) & fmap catMaybes
   where extract [] = Nothing
         extract (h:_) = Just h
@@ -91,6 +88,7 @@ summarise dir = do
                                                           (read min)
                                                           (read max))
                          fileInfo
+
 
 
 demoClasses :: Data.Map.Map T.Text RubyClass
