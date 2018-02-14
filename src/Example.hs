@@ -39,11 +39,20 @@ fail msg   = Failure msg
 sink       = flip shellStrict empty
 flogCmd    = sink . ("flog " <>)
 
+type LineOffset = Int
 
 data MethodSummary =
-     MethodSummary String Float
-    |MethodSummaryPath String Float String
-     deriving (Show,Eq,Ord)
+     MethodSummary {msName :: String,
+                   msCost ::  Float}
+    |MethodSummaryPath { msName :: String
+                  ,msCost :: Float
+                  ,msPath :: String
+                  ,msloMin :: LineOffset
+                  ,msloMax :: LineOffset}
+     deriving (Show,Eq,Ord,Generic)
+
+instance ToJSON MethodSummary
+
 data Complexity    = Complexity String Int [MethodSummary]
 
 summarise :: FilePath -> IO [MethodSummary]
