@@ -97,15 +97,21 @@ index :: [MethodSummary] -> [Complexity]
 index = fmap construct
         . groupBy algo
       where unpack (MethodSummary scope cost)                 = (scope,cost)
-            unpack (MethodSummaryPath scope cost path low hi) = (scope,cost)
-            algo (MethodSummaryPath _ _ path1 _ _) (MethodSummaryPath _ _ path2 _ _) = path1 == path2
-            algo _ _                                                                 = False
-            construct mss@((MethodSummaryPath scope _ _ _ _):ls) = Complexity (derive scope)
-                                                                              (sum (msCost <$> mss))
-                                                                              (Data.Map.fromList $ fmap unpack $ mss)
-            construct mss@((MethodSummary scope _ ):ls) = Complexity (derive scope)
-                                                                     (sum (msCost <$> mss))
-                                                                     (Data.Map.fromList $ fmap unpack $ mss)
+            unpack (MethodSummaryPath scope cost _ _ _) = (scope,cost)
+
+            algo (MethodSummaryPath _ _ path1 _ _) (MethodSummaryPath _ _ path2 _ _) =
+                 path1 == path2
+            algo _ _                                                                 =
+                 False
+
+            construct mss@((MethodSummaryPath scope _ _ _ _):ls) =
+              Complexity (derive scope)
+                       (sum (msCost <$> mss))
+                       (Data.Map.fromList $ fmap unpack $ mss)
+            construct mss@((MethodSummary scope _ ):ls) =
+              Complexity (derive scope)
+                       (sum (msCost <$> mss))
+                       (Data.Map.fromList $ fmap unpack $ mss)
             derive cs = (elemIndex '#' cs >>= pure . fst . flip splitAt cs)
                         <|> pure cs
                          & fromJust
