@@ -94,7 +94,7 @@ summarise dir = do
 
 
 index :: [MethodSummary] -> Complexity
-index ms = Complexity "" (sum (msCost <$> ms))
+index ms = Complexity "scope-unknown" (sum (msCost <$> ms))
            . Data.Map.fromList
            . fmap unpack $ ms
       where unpack (MethodSummary scope cost)                 = (scope,cost)
