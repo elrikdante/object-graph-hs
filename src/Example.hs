@@ -25,7 +25,7 @@ import Data.Foldable (forM_)
 import Data.Function -- ((&))
 import Turtle
 import Prelude hiding (FilePath,fail)
-import Data.List (sortOn)
+import Data.List -- (sortOn,groupBy)
 import qualified Data.ByteString.Lazy as LBS
 
 data RubyClass    = RubyClass T.Text [(T.Text, Double)] deriving Show
@@ -93,12 +93,22 @@ summarise dir = do
                          fileInfo
 
 
-index :: [MethodSummary] -> Complexity
-index ms = Complexity "scope-unknown" (sum (msCost <$> ms))
-           . Data.Map.fromList
-           . fmap unpack $ ms
+index :: [MethodSummary] -> [Complexity]
+index ms = fmap construct
+           . groupBy algo  $ ms
       where unpack (MethodSummary scope cost)                 = (scope,cost)
             unpack (MethodSummaryPath scope cost path low hi) = (scope,cost)
+            algo (MethodSummaryPath _ _ path1 _ _) (MethodSummaryPath _ _ path2 _ _) = path1 == path2
+            algo _ _ = False
+            construct mss@((MethodSummaryPath scope _ _ _ _):ls) = Complexity (derive scope)
+                                                                              (sum (msCost <$> mss))
+                                                                              (Data.Map.fromList $ fmap unpack $ mss)
+            construct mss@((MethodSummary scope _ ):ls) = Complexity (derive scope)
+                                                                     (sum (msCost <$> mss))
+                                                                     (Data.Map.fromList $ fmap unpack $ mss)
+            derive cs = (elemIndex '#' cs >>= pure . flip splitAt cs >>= pure . fst)
+                        <|> pure cs
+                         & fromJust
 
 demoClasses :: Data.Map.Map T.Text RubyClass
 demoClasses = Data.Map.fromList [
